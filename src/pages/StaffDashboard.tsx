@@ -52,7 +52,7 @@ export default function StaffDashboard() {
   const { data: profile, isLoading: isLoadingProfile, error } = useProfile();
   const userProfile = profile?.data;
   const userId = userProfile?.id || null;
-  usePushNotifications(userId);
+  const requestPushPermission = usePushNotifications(userId);
 
   // Use TanStack Query for today's order with caching
   const { 
@@ -532,6 +532,12 @@ if (refreshedData?.status === "success" && refreshedData.data) {
             {getGreeting()}, {userProfile?.full_name || localStorage.getItem("vasfood_display_name") || "User"}!
           </h1>
           <p className="text-muted-foreground">Ready to order your lunch?</p>
+          <div className="flex gap-2">
+            <Button onClick={requestPushPermission} className="bg-gray-600">
+              <Plus className="h-4 w-4 mr-2" />
+              Enable Notification
+            </Button>
+          </div>
           {/*{userProfile?.email && (*/}
           {/*  <p className="text-sm text-gray-500">{userProfile.email}</p>*/}
           {/*)}*/}
