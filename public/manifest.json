@@ -1,0 +1,35 @@
+{
+  "short_name": "Vasfood",
+  "name": "Vasfood App",
+  "icons": [
+    {
+      "src": "/icon/favicon_192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon/favicon_512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/icon/favicon_1280x720.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/icon/favicon_640x1136.png",
+      "sizes": "640x1136",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#eb1414",
+  "description": "Vasfood Progressive Web App"
+}
