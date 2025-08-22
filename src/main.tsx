@@ -21,7 +21,11 @@ createRoot(document.getElementById("root")!).render(
   </QueryClientProvider>
 );
 
-if('Notification' in window && 'serviceWorker' in navigator && 'PushManager' in window) {
+if('Notification' in window) alert("service worker here");
+if('PushManager' in window) alert("push in window");
+
+if('serviceWorker' in navigator) {
+  alert("service worker in window");
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/firebase-messaging-sw.js')
       .then(reg => alert('Service Worker registered: ' + reg))
