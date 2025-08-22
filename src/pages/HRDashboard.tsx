@@ -59,10 +59,12 @@ import { useTodaysOrders } from "@/hooks/useTodaysOrders";
 import { useNavigate } from "react-router-dom";
 import { adminCollectOrder, adminUncollectOrder } from "@/lib/api";
 import {Tooltip} from "recharts";
+import usePushNotifications from "@/hooks/usePushNotification";
 import { useProfile } from "@/hooks/useProfile";
 import{authenticatedFetch} from "@/lib/api";
 import { useLocation } from "react-router-dom";
 import { useQueryClient } from '@tanstack/react-query';
+import InstallBanner from "@/components/installBanner";
 
 type OrderStatus = "ordered" | "unordered" | "collected" | "unplaced";
 
@@ -98,6 +100,7 @@ export default function HRDashboard() {
   const { data: profile, isLoading: isLoadingProfile, error } = useProfile();
   const userProfile = profile?.data;
   const userId = userProfile?.id || null;
+  // usePushNotifications(userId);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -416,6 +419,7 @@ export default function HRDashboard() {
 
   return (
     <div className="space-y-6">
+      <InstallBanner />
       
       {/* Header */}
       <div className="flex items-center justify-between">
