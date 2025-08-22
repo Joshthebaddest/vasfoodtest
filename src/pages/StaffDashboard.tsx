@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { StatusBadge } from "@/components/StatusBadge";
 import { useToast } from "@/hooks/use-toast";
-import { ChefHat, Clock, CheckCircle } from "lucide-react";
+import { ChefHat, Clock, CheckCircle, Plus } from "lucide-react";
 import vasLogo from "@/assets/vasLogo.png";
 import {  Pencil, Trash2 } from "lucide-react";
 import foodIcon from "@/assets/food_icon-removebg-preview.png";
