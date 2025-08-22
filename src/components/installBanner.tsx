@@ -32,17 +32,26 @@ const InstallBanner: React.FC = () => {
       setShowBanner(false);
       return;
     }
-
+   console.log('handler');
     const handler = (e: Event) => {
       e.preventDefault();
+      console.log('handler');
       setDeferredPrompt(e as BeforeInstallPromptEvent);
+      console.log('beforeinstallprompt event captured');
+      console.log(localStorage.getItem('pwaInstallDismissed'));
       if (!localStorage.getItem('pwaInstallDismissed')) {
         setMessageType('native-install');
         setShowBanner(true);
       }
     };
 
-    window.addEventListener('beforeinstallprompt', handler);
+    window.addEventListener('beforeinstallprompt', (e) => {
+  console.log('beforeinstallprompt fired', e);
+  e.preventDefault();
+  setDeferredPrompt(e);
+  setShowBanner(true);
+});
+
 
     // Listen for appinstalled event
     const onAppInstalled = () => {

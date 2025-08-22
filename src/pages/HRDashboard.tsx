@@ -100,7 +100,8 @@ export default function HRDashboard() {
   const { data: profile, isLoading: isLoadingProfile, error } = useProfile();
   const userProfile = profile?.data;
   const userId = userProfile?.id || null;
-  // usePushNotifications(userId);
+  const requestPushPermission = usePushNotifications(userId);
+
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -434,6 +435,12 @@ export default function HRDashboard() {
           <Button onClick={() => navigate("/hr/staff-list")}>
             <Plus className="h-4 w-4 mr-2" />
             Create Order
+          </Button>
+        </div>
+        <div className="flex gap-2">
+          <Button onClick={requestPushPermission} className="bg-gray-600">
+            <Plus className="h-4 w-4 mr-2" />
+            Enable Notification
           </Button>
         </div>
       </div>

@@ -22,8 +22,8 @@ interface NotificationPayload {
   [key: string]: any;
 }
 
-const usePushNotifications = (userId: string | undefined): void => {
-  useEffect(() => {
+const usePushNotifications = (userId: string | undefined): (() => void) => {
+  const subscribeToPush = () => {
     if (!userId) return;
 
     Notification.requestPermission().then((permission) => {
@@ -37,31 +37,32 @@ const usePushNotifications = (userId: string | undefined): void => {
                 body: JSON.stringify({ userId, token: currentToken }),
               });
             } else {
-              console.log(
-                "No registration token available. Request permission to generate one."
-              );
+              console.log("No registration token available.");
             }
           })
           .catch((err) => {
-            console.log("An error occurred while retrieving token. ", err);
+            console.log("Error retrieving token: ", err);
           });
       } else {
         console.log("Notification permission denied");
       }
     });
+  };
 
-    onMessage(messaging, (payload: MessagePayload) => {
+  useEffect(() => {
+    const unsubscribe = onMessage(messaging, (payload: MessagePayload) => {
       console.log("Message received in foreground: ", payload);
-      // Optional: Show toast or custom alert
-      if (
-        payload.notification &&
-        payload.notification.title &&
-        payload.notification.body
-      ) {
-        alert(payload.notification.title + ": " + payload.notification.body);
+      if (payload.notification?.title && payload.notification?.body) {
+        alert(`${payload.notification.title}: ${payload.notification.body}`);
       }
     });
+
+    return () => {
+      // Cleanup onMessage if needed
+    };
   }, [userId]);
+
+  return subscribeToPush;
 };
 
 export default usePushNotifications;
