@@ -22,6 +22,7 @@ createRoot(document.getElementById("root")!).render(
 );
 
 if ('serviceWorker' in navigator) {
+  alert('Registering service worker');
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/firebase-messaging-sw.js')
       .then(reg => console.log('Service Worker registered:', reg))
