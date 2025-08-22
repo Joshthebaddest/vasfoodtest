@@ -24,7 +24,7 @@ createRoot(document.getElementById("root")!).render(
 if('Notification' in window && 'serviceWorker' in navigator && 'PushManager' in window) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/firebase-messaging-sw.js')
-      .then(reg => console.log('Service Worker registered:', reg))
-      .catch(err => console.error('SW failed:', err));
+      .then(reg => alert('Service Worker registered: ' + reg))
+      .catch(err => alert('SW failed: ' + err));
   });
 }
