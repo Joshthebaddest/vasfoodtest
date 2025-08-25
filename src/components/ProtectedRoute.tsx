@@ -10,14 +10,31 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
 
+  const checkAuth = async () => {
+    setIsLoading(true);
+    const authenticated = await isAuthenticated();
+    setIsAuth(authenticated);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    const checkAuth = async () => {
-      const authenticated = await isAuthenticated(); // ✅ await async function
-      setIsAuth(authenticated);
-      setIsLoading(false);
+    // Initial auth check on mount
+    checkAuth();
+
+    // Refresh on user interaction
+    const onUserInteraction = () => {
+      checkAuth();
     };
 
-    checkAuth();
+    window.addEventListener("click", onUserInteraction);
+    window.addEventListener("keydown", onUserInteraction);
+    window.addEventListener("focus", onUserInteraction);
+
+    return () => {
+      window.removeEventListener("click", onUserInteraction);
+      window.removeEventListener("keydown", onUserInteraction);
+      window.removeEventListener("focus", onUserInteraction);
+    };
   }, []);
 
   if (isLoading) {
